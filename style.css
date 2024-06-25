@@ -309,14 +309,26 @@ main {
 	overflow: hidden;
 } */
 
-.product-bot {
+.product-bot-modificar {
 	font-size: var(--font-sm);
 	background-color: #a770ef;
 	padding: 10px 20px;
 	border-radius: 15px;
 	text-align: center;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.product-bot-borrar{
+	font-size: var(--font-sm);
+	background-color: #a770ef;
+	padding: 10px 20px;
+	border-radius: 15px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
 	align-items: center;
 	gap: 10px;
 }
