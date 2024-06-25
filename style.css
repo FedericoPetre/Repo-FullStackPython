@@ -226,6 +226,8 @@ main {
 	padding: 8px 20px;
 	border-radius: 5px;
 }
+
+
 /*  ================== PRODUCTS ==================*/
 #products {
 	padding: 70px 0px 70px 0px;
@@ -346,6 +348,43 @@ main {
 .product5-img img,
 .product6-img img {
 	width: 85%;
+}
+
+#añadir-producto {
+    position: relative;
+    width: 100px; /* Ajusta según el tamaño deseado */
+    height: 100px; /* Ajusta según el tamaño deseado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+#añadir-producto a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+	transition: transform .05s;
+}
+
+#añadir-producto a:hover{
+	transform: scale(1.1);
+}
+
+#añadir-producto #circle {
+    position: absolute;
+    width: 80%; /* Ajusta según el tamaño deseado */
+    height: 80%; /* Ajusta según el tamaño deseado */
+}
+
+#añadir-producto #mas {
+    position: absolute;
+    width: 30%; /* Ajusta según el tamaño deseado */
+    color: whitesmoke;
+	z-index: 2;
 }
 
 /*  ================== BENEFICIOS ==================*/
