@@ -32,8 +32,6 @@ export function modificarProducto(idProducto) {
         //guarda en localStorage el producto en string a ser modificado
         localStorage.setItem('productoAModificar', productoJSON);
     }
-
-   window.location.assign('../../modificar_producto.html');
 }
 
 // Asignar la función al objeto window para hacerla accesible globalmente

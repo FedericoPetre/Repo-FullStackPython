@@ -47,7 +47,7 @@ export default class Producto{
 				
                 <!-- Bot-->
 					<div class="product-bot-modificar">
-						<a onclick="modificarProducto('${this.idProducto}')" class="btn-comprar">MODIFICAR PRODUCTO</a>
+						<a href="modificar_producto.html" onclick="modificarProducto('${this.idProducto}')" class="btn-comprar">MODIFICAR PRODUCTO</a>
 					</div>
 						
                 <div class="product-bot-borrar">

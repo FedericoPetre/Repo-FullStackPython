@@ -33,7 +33,6 @@ export function modificarProducto(idProducto) {
         localStorage.setItem('productoAModificar', productoJSON);
     }
 
-    window.location.assign('/Repo-FullStackPython-CAC/modificar_producto.html');
 }
 
 // Asignar la función al objeto window para hacerla accesible globalmente
