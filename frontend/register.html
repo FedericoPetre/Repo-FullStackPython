@@ -7,34 +7,34 @@
 		<link
 			rel="apple-touch-icon"
 			sizes="180x180"
-			href="./img/favicon/apple-touch-icon.png" />
+			href="./src/assets/img/favicon/apple-touch-icon.png" />
 		<link
 			rel="icon"
 			type="image/png"
 			sizes="32x32"
-			href="./img/favicon/favicon-32x32.png" />
+			href="./src/assets/img/favicon/favicon-32x32.png" />
 		<link
 			rel="icon"
 			type="image/png"
 			sizes="16x16"
-			href="./img/favicon/favicon-16x16.png" />
-		<link rel="manifest" href="./img/favicon/site.webmanifest" />
-		<link rel="stylesheet" href="style.css" />
+			href="./src/assets/img/favicon/favicon-16x16.png" />
+		<link rel="manifest" href="./src/assets/img/favicon/site.webmanifest" />
+		<link rel="stylesheet" href="./src/styles/style.css" />
 		<link
 			rel="stylesheet"
 			href="path/to/font-awesome/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="mediaqueries.css" />
-		<link rel="stylesheet" href="animaciones.css" />
-		<link rel="stylesheet" href="loggin.css" />
+		<link rel="stylesheet" href="./src/styles/mediaqueries.css" />
+		<link rel="stylesheet" href="./src/styles/animaciones.css" />
+		<link rel="stylesheet" href="./src/styles/loggin.css" />
 	</head>
 	<body>
 		<header class="header">
 			<a href="./index.html" class="header__logo">
-				<img src="./img/HDTech_logo.png" alt="HDTech_logo"
+				<img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo"
 			/></a>
 			<nav class="navbar">
 				<label for="menu-toggle" class="menu-label">
-					<img src="./img/menu.png" alt="Menu" />
+					<img src="./src/assets/img/menu.png" alt="Menu" />
 				</label>
 				<input type="checkbox" id="menu-toggle" />
 
@@ -53,27 +53,31 @@
 				<div class="navbar__icons">
 					<a href="./alta_producto.html" target="_blank">
 						<img
-							src="./img/plus-solid-navbar.svg"
+							src="./src/assets/img/plus-solid-navbar.svg"
 							alt="loggin"
 							class="navbar__icons__loggin" />
 					</a>
 					<!-- <img
-						src="./img/cart-shopping-solid.svg"
+						src="./src/assets/img/cart-shopping-solid.svg"
 						alt="carrito de compras"
 						class="navbar__icons__cart" /> -->
 				</div>
 			</nav>
 		</header>		
+
 		<main class="main">
 			<div class="divisor-main"></div>
 			<form class="form">
-				<h1 class="form__title">Ingresar nuevo producto</h1>
-				<input type="text" placeholder="Nombre de producto" class="form__input" />
-				<input type="number" placeholder="Número de serie" class="form__input" />
-				<input type="file" placeholder="Imagen" class="form__input" content="Imagen del producto"/>
-				<input type="number" placeholder="Precio" class="form__input" />
-				<input type="number" placeholder="Cantidad" class="form__input" />
-				<a href="#" class="btn btn--submit">Listo</a>
+				<h1 class="form__title">Crear una cuenta</h1>
+				<input type="text" placeholder="Nombre" class="form__input" />
+				<input type="text" placeholder="Apellido" class="form__input" />
+				<input type="email" placeholder="Email" class="form__input" />
+				<input type="password" placeholder="Contraseña" class="form__input" />
+				<input
+					type="password"
+					placeholder="Repita su contraseña"
+					class="form__input" />
+				<a href="#" class="btn btn--submit">Guardar</a>
 			</form>
 		</main>
 
@@ -81,16 +85,16 @@
 		<footer id="footer">
 			<div class="footer-company">
 				<div class="footer__logo">
-					<img src="./img/HDTech_logo.png" alt="HDTech_logo" />
+					<img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo" />
 				</div>
 				<div class="footer-direccion">
 					<img
-						src="./img/footer/image-removebg-preview (1).png"
+						src="./src/assets/img/footer/image-removebg-preview (1).png"
 						alt="location-icon" />
 					<p>Ciudad de Buenos Aires, Argentina</p>
 				</div>
 				<div class="footer-email">
-					<img src="./img/footer/email.png" alt="email-icon" />
+					<img src="./src/assets/img/footer/email.png" alt="email-icon" />
 					<p>info@hdtech.com.ar</p>
 				</div>
 			</div>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>HDTech</title>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="./src/assets/img/favicon/apple-touch-icon.png" />
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="./src/assets/img/favicon/favicon-32x32.png" />
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="./src/assets/img/favicon/favicon-16x16.png" />
+		<link rel="manifest" href="./src/assets/img/favicon/site.webmanifest" />
+		<link rel="stylesheet" href="./src/styles/style.css" />
+		<link
+			rel="stylesheet"
+			href="path/to/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="./src/styles/mediaqueries.css" />
+		<link rel="stylesheet" href="./src/styles/animaciones.css" />
+		<link rel="stylesheet" href="./src/styles/loggin.css" />
+
+		<script type="module" src="./src/scripts/producto.js"></script>
+		<script type="module" src="./src/scripts/script_index.js"></script>
+	</head>
+	<body>
+		<header class="header">
+			<a href="#" class="header__logo">
+				<img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo"
+			/></a>
+			<nav class="navbar">
+				<label for="menu-toggle" class="menu-label">
+					<img src="./src/assets/img/menu.png" alt="Menu" />
+				</label>
+				<input type="checkbox" id="menu-toggle" />
+
+				<ul class="navbar__menu">
+					<li class="navbar__items">
+						<a href="#hero" class="navbar__links">Home</a>
+					</li>
+					<li class="navbar__items">
+						<a href="#products" class="navbar__links">Productos</a>
+					<!-- </li>
+					<li class="navbar__items">
+						<a href="#contacto" class="navbar__links">Contacto</a>
+					</li> -->
+				</ul>
+
+				<div class="navbar__icons">
+					<a href="./alta_producto.html" target="_blank">
+						<img
+							src="./src/assets/img/plus-solid-navbar.svg"
+							alt="loggin"
+							class="navbar__icons__loggin" />
+					</a>
+					<!-- <img
+						src="./src/assets/img/cart-shopping-solid.svg"
+						alt="carrito de compras"
+						class="navbar__icons__cart" /> -->
+				</div>
+			</nav>
+		</header>
+
+		<main>
+			<div class="divisor-main"></div>
+			<!-- HERO -->
+			<section id="hero">
+				<div class="hero-container">
+					<div class="hero-info">
+						<h1>
+							MacBook Air 15" <br />
+							M2 Chip
+						</h1>
+						<p>La más grande en peso ligero.</p>
+					</div>
+					<div class="hero-img">
+						<img
+							src="./src/assets/img/hero/hero-Macbook Air 15.png"
+							alt="Macbook Air 15" />
+					</div>
+				</div>
+			</section>
+
+			
+			<div class="divisor"></div>
+
+			<!-- PRODUCTS-->
+			<section id="products">
+				<div class="products-container" id="contenedorCardsProductos">
+					<!-- Acá se genera el HTML dinámico con las cards de productos-->
+				</div>
+			</section>
+
+			<section id="destacados"></section>
+
+			<!-- BENEFICIOS -->
+			<section id="beneficios">
+				<div class="beneficios__envios">
+					<div class="beneficios-icons">
+						<img
+							src="./src/assets/img/beneficios/envios-icon.png"
+							alt="envíos a domicilio" />
+					</div>
+
+					<h3>ENVÍOS A DOMICILIO</h3>
+					<p>Hacé tu compra online y te lo enviamos a donde vos quieras.</p>
+				</div>
+				<div class="beneficios__precio">
+					<div class="beneficios-icons">
+						<img
+							src="./src/assets/img/beneficios/precio-icon.png"
+							alt="el precio más conveniente" />
+					</div>
+
+					<h3>EL PRECIO MÁS CONVENIENTE</h3>
+					<p>Somos siempre la mejor opción.</p>
+				</div>
+				<div class="beneficios__garantia">
+					<div class="beneficios-icons">
+						<img
+							src="./src/assets/img/beneficios/garantia-icon.png"
+							alt="garantía oficial" />
+					</div>
+
+					<h3>CON GARANTÍA OFICIAL</h3>
+					<p>
+						Nuestros productos incluyen la garantía oficial de las marcas
+						fabricantes.
+					</p>
+				</div>
+				<div class="beneficios__atencion">
+					<div class="beneficios-icons">
+						<img
+							src="./src/assets/img/beneficios/atencion-icon.png"
+							alt="atención personalizada" />
+					</div>
+
+					<h3>ATENCIÓN PERSONALIZADA</h3>
+					<p>Asesores comerciales disponibles para resolver todas tus dudas.</p>
+				</div>
+			</section>
+		</main>
+
+		<!-- CONTACTO -->
+		<!-- <section id="contacto">
+			<div class="contacto">
+				<p>CONTACTANOS</p>
+				<div>
+					<input placeholder="Nombre" type="text" tabindex="1" required />
+				</div>
+				<div>
+					<input
+						placeholder="Email Address"
+						type="email"
+						tabindex="2"
+						required />
+				</div>
+				<div>
+					<input placeholder="Teléfono" type="tel" tabindex="3" required />
+				</div>
+				<div class="textarea">
+					<textarea
+						placeholder="Escribe tu mensaje...."
+						tabindex="5"
+						required></textarea>
+				</div>
+				<div>
+					<button
+						name="submit"
+						type="submit"
+						id="contact-submit"
+						data-submit="...Sending">
+						Submit
+					</button>
+				</div>
+			</div>
+		</section> -->
+
+		<div class="divisor"></div>
+		<!-- FOOTER -->
+		<footer id="footer">
+			<div class="footer-company">
+				<div class="footer__logo">
+					<img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo" />
+				</div>
+				<div class="footer-direccion">
+					<img
+						src="./src/assets/img/footer/image-removebg-preview (1).png"
+						alt="location-icon" />
+					<p>Ciudad de Buenos Aires, Argentina</p>
+				</div>
+				<div class="footer-email">
+					<img src="./src/assets/img/footer/email.png" alt="email-icon" />
+					<p>info@hdtech.com.ar</p>
+				</div>
+			</div>
+			<div class="footer-productos">
+				<p>PRODUCTOS</p>
+				<ul class="footer-links">
+					<li><a href="#">Ofertas</a></li>
+					<li><a href="#">Novedades</a></li>
+					<li><a href="#">Los más vendidos</a></li>
+				</ul>
+			</div>
+			<div class="footer-empresa">
+				<p>NUESTRA EMPRESA</p>
+				<ul class="footer-links">
+					<li><a href="#">Envíos</a></li>
+					<li><a href="#">Términos y condiciones</a></li>
+					<li><a href="#">Mapa del sitio</a></li>
+				</ul>
+			</div>
+		</footer>
+	</body>
+</html>
