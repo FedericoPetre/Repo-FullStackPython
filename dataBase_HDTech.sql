@@ -29,3 +29,5 @@ insert into productos (
                            'En stock',
                            'Apple Watch Series 8 41mm - Aluminum case with Sport Band',
                            100);
+		
+alter table productos add column id_producto_html varchar(15);
