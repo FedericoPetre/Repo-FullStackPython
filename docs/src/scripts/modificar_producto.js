@@ -90,7 +90,6 @@ function validarSiElFormularioEsValido(arrayIds){
         if(id != "idInputImage" && id != "idImagenProducto"){
             diccionionario.push({"id":id, "valor":document.getElementById(id).value});
         }
-        console.log(id)
     }
 
     return validarCamposFormulario(diccionionario)
