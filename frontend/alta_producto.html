@@ -7,17 +7,17 @@
 		<link
 			rel="apple-touch-icon"
 			sizes="180x180"
-			href="./src./src/assets/img/favicon/apple-touch-icon.png" />
+			href="./src/assets/img/favicon/apple-touch-icon.png" />
 		<link
 			rel="icon"
 			type="image/png"
 			sizes="32x32"
-			href="./src./src/assets/img/favicon/favicon-32x32.png" />
+			href="./src/assets/img/favicon/favicon-32x32.png" />
 		<link
 			rel="icon"
 			type="image/png"
 			sizes="16x16"
-			href="./src./src/assets/img/favicon/favicon-16x16.png" />
+			href="./src/assets/img/favicon/favicon-16x16.png" />
 		<link rel="manifest" href="./src/assets/img/favicon/site.webmanifest" />
 		<link rel="stylesheet" href="./src/styles/style.css" />
 		<link
@@ -26,6 +26,8 @@
 		<link rel="stylesheet" href="./src/styles/mediaqueries.css" />
 		<link rel="stylesheet" href="./src/styles/animaciones.css" />
 		<link rel="stylesheet" href="./src/styles/loggin.css" />
+
+		<script type="module" src="./src/scripts/alta_producto.js"></script>
 	</head>
 	<body>
 		<header class="header">
@@ -63,20 +65,22 @@
 						class="navbar__icons__cart" /> -->
 				</div>
 			</nav>
-		</header>		
+		</header>	
 		<main class="main">
 			<div class="divisor-main"></div>
+			<br>
 			<form class="form">
-				<h1 class="form__title">Ingresar nuevo producto</h1>
-				<input type="text" placeholder="Nombre de producto" class="form__input" />
-				<input type="number" placeholder="Número de serie" class="form__input" />
-				<input type="file" placeholder="Imagen" class="form__input" content="Imagen del producto"/>
-				<input type="number" placeholder="Precio" class="form__input" />
-				<input type="number" placeholder="Cantidad" class="form__input" />
-				<a href="#" class="btn btn--submit">Listo</a>
+				<h1 class="form__title">Alta de producto</h1>
+				<div class="product-img"><img id="idImagenProducto" class="imagenDelProducto" src="./src/assets/img/producto-generico.jpg" alt="Producto Genérico"/></div>
+				<input type="text" placeholder="Nombre de producto" class="form__input" id="txtNombreProducto"/>
+				<input type="text" placeholder="Número de serie" class="form__input" id="txtNumeroSerie" />
+				<input type="file" accept="image/*" placeholder="Imagen" class="form__input" content="Imagen del producto" id="idInputImage"/>
+				<input type="number" placeholder="Precio" class="form__input" id="txtPrecioProducto" />
+				<input type="text" placeholder="Stock" class="form__input" id="txtStock" />
+				<a href="#" id="btnGuardar" class="btn btn--submit" style="margin-bottom: 5px;">Guardar Cambios</a>
 			</form>
 		</main>
-
+		<br>
 		<!-- FOOTER -->
 		<footer id="footer">
 			<div class="footer-company">
