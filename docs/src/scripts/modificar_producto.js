@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let producto = JSON.parse(productoJSON);
 
         nombreProductoHTML.value = producto.nombreProducto;
-        numeroSerieHTML.value = producto.idProducto;
+        numeroSerieHTML.value = producto.numeroDeSerie;
         imagenProductoHTML.src=`${producto.srcImagenProducto}`;
         imagenProductoHTML.alt=`${producto.altImagenProducto}`;
         precioProductoHMTL.value = producto.precioProducto;
