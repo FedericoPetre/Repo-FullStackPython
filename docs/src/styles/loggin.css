@@ -50,3 +50,22 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.form-control.falla input{
+	border: 0.1px solid;
+	border-color: red;
+}
+
+.form-control.ok input{
+border: 0.1px solid;
+border-color: green;
+}
+
+.form-control p{
+	visibility: hidden;
+	
+}
+
+.form-control.falla p{
+	visibility: visible;
+}
