@@ -1,7 +1,7 @@
 import Producto from "./producto.js";
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    let arrayIds = ["txtNombreProducto", "txtNumeroSerie", "idImagenProducto", "txtPrecioProducto", "txtStock", "idInputImage"];
+    let arrayIds = ["txtNombreProducto", "txtNumeroSerie", "idImagenProducto", "txtPrecioProducto", "txtStock"];
     for(let id of arrayIds){
         switch(id){
             case "txtNombreProducto":
@@ -31,24 +31,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     cambiarEstilo(id, true);  
                 })
                 break;
-            case "idInputImage":
-                var fileInputImage = document.getElementById(id)
-                //cambia la imagen que se ve cuando se inserta otra foto
-                fileInputImage.addEventListener('change',(event)=>{
-                    const imagen = event.target.files[0];
-                    if (imagen) {
-                        const reader = new FileReader();
-                        
-                        reader.onload = function(e) {
-                            // Mostrar la imagen en la etiqueta img
-                            imagenProductoHTML.src = `${e.target.result}`;
-                            imagenProductoHTML.alt=`${nombreProductoHTML.value}`;
-                        }
-                        
-                        reader.readAsDataURL(imagen);
-                    }    
-                })
-                break;
+                default:
+                    break;
         }
     }     
 
@@ -72,11 +56,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if(validarSiElFormularioEsValido(arrayIds)){
             //TODO El formulario es válido, se envía todo al backend
             //Se crea un formulario y se envía
-            alert("Formulario válido!! Se modifica el producto");
+            alert("Formulario válido!! Se elimina el producto");
         }else
         {
             //TODO el formulario no es válido. El usuario tiene que completar lo que falta
-            alert("Formulario no válido!! No se modifica el producto");
+            alert("Formulario no válido!! No se elimina el producto");
         }
     })
 
@@ -89,7 +73,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function validarSiElFormularioEsValido(arrayIds){
     let diccionionario =[]
     for(let id of arrayIds){
-        if(id != "idInputImage" && id != "idImagenProducto"){
+        if(id != "idImagenProducto"){
             diccionionario.push({"id":id, "valor":document.getElementById(id).value});
         }
     }

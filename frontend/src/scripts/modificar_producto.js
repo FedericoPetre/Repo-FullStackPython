@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         
                         reader.onload = function(e) {
                             // Mostrar la imagen en la etiqueta img
-                            imagenProductoHTML.innerHTML = `<img class="imagenDelProducto" src="${e.target.result}" alt="${nombreProductoHTML.value}"/>`;
+                            imagenProductoHTML.src = `${e.target.result}`;
+                            imagenProductoHTML.alt=`${nombreProductoHTML.value}`;
                         }
                         
                         reader.readAsDataURL(imagen);
@@ -59,7 +60,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         nombreProductoHTML.value = producto.nombreProducto;
         numeroSerieHTML.value = producto.idProducto;
-        imagenProductoHTML.innerHTML = `<img class="imagenDelProducto" src="${producto.srcImagenProducto}" alt="${producto.altImagenProducto}"/>`;
+        imagenProductoHTML.src=`${producto.srcImagenProducto}`;
+        imagenProductoHTML.alt=`${producto.altImagenProducto}`;
         precioProductoHMTL.value = producto.precioProducto;
         estadoProductoHTML.value = producto.estadoProducto;
     }
@@ -70,11 +72,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if(validarSiElFormularioEsValido(arrayIds)){
             //TODO El formulario es válido, se envía todo al backend
             //Se crea un formulario y se envía
-            console.log("Formulario válido!! Se envía");
+            alert("Formulario válido!! Se modifica el producto");
         }else
         {
             //TODO el formulario no es válido. El usuario tiene que completar lo que falta
-            console.log("Formulario no válido!! No se envía");
+            alert("Formulario no válido!! No se modifica el producto");
         }
     })
 
@@ -149,6 +151,7 @@ function cambiarEstilo(id, flagEsValido){
                 document.getElementById(id).style.border = "1px solid red"
             }else{
                 document.getElementById(id).style.border = "1px solid #c9c8c8"
+                document.getElementById(id).placeholder = "Nombre de producto"
             }
             break;
         case "txtNumeroSerie":
@@ -157,6 +160,7 @@ function cambiarEstilo(id, flagEsValido){
                 document.getElementById(id).style.border = "1px solid red"
             }else{
                 document.getElementById(id).style.border = "1px solid #c9c8c8"
+                document.getElementById(id).placeholder = "Número de serie"
             }
             break;
         case "txtStock":
@@ -165,6 +169,7 @@ function cambiarEstilo(id, flagEsValido){
                 document.getElementById(id).style.border = "1px solid red"
             }else{
                 document.getElementById(id).style.border = "1px solid #c9c8c8"
+                document.getElementById(id).placeholder = "Stock"
             }
             break;
         case "txtPrecioProducto":
@@ -173,6 +178,7 @@ function cambiarEstilo(id, flagEsValido){
                 document.getElementById(id).style.border = "1px solid red"
             }else{
                 document.getElementById(id).style.border = "1px solid #c9c8c8"
+                document.getElementById(id).placeholder = "Precio"
             }
             break;
         default:

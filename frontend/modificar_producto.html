@@ -27,7 +27,6 @@
 		<link rel="stylesheet" href="./src/styles/animaciones.css" />
 		<link rel="stylesheet" href="./src/styles/loggin.css" />
 
-		<script type="module" src="./src/scripts/script_index.js"></script>
 		<script type="module" src="./src/scripts/modificar_producto.js"></script>
 	</head>
 	<body>
@@ -72,13 +71,13 @@
 			<br>
 			<form class="form">
 				<h1 class="form__title">Modificar producto</h1>
-				<div class="product-img" id="idImagenProducto"></div>
+				<div class="product-img"><img id="idImagenProducto" class="imagenDelProducto" src="./src/assets/img/producto-generico.jpg" alt="Producto Genérico"/></div>
 				<input type="text" placeholder="Nombre de producto" class="form__input" id="txtNombreProducto"/>
 				<input type="text" placeholder="Número de serie" class="form__input" id="txtNumeroSerie" />
 				<input type="file" accept="image/*" placeholder="Imagen" class="form__input" content="Imagen del producto" id="idInputImage"/>
 				<input type="number" placeholder="Precio" class="form__input" id="txtPrecioProducto" />
 				<input type="text" placeholder="Stock" class="form__input" id="txtStock" />
-				<a href="#" id="btnGuardar" class="btn btn--submit" style="margin-bottom: 5px;">Guardar</a>
+				<a href="#" id="btnGuardar" class="btn btn--submit" style="margin-bottom: 5px;">Guardar Cambios</a>
 			</form>
 		</main>
 		<br>

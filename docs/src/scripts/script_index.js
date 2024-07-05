@@ -25,15 +25,14 @@ function cargarProductos(){
     document.getElementById("contenedorCardsProductos").innerHTML = htmlElementProductos;
 }
 
-export function modificarProducto(idProducto) {
+export function modificarOEliminarProducto(idProducto) {
     let productoJSON = document.getElementById(idProducto).getAttribute("productoJson");
 
     if (productoJSON != null) {
         //guarda en localStorage el producto en string a ser modificado
         localStorage.setItem('productoAModificar', productoJSON);
     }
-
 }
 
 // Asignar la función al objeto window para hacerla accesible globalmente
-window.modificarProducto = modificarProducto;
+window.modificarOEliminarProducto = modificarOEliminarProducto;

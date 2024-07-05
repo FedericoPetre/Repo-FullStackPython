@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 var fileInputImage = document.getElementById(id)
                 //cambia la imagen que se ve cuando se inserta otra foto
                 fileInputImage.addEventListener('change',(event)=>{
+                    cambiarEstilo(id, true);
                     const imagen = event.target.files[0];
                     if (imagen) {
                         const reader = new FileReader();
@@ -52,31 +53,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }     
 
-
-    let productoJSON = localStorage.getItem('productoAModificar');
-
-    if(productoJSON != null){
-        let producto = JSON.parse(productoJSON);
-
-        nombreProductoHTML.value = producto.nombreProducto;
-        numeroSerieHTML.value = producto.idProducto;
-        imagenProductoHTML.src=`${producto.srcImagenProducto}`;
-        imagenProductoHTML.alt=`${producto.altImagenProducto}`;
-        precioProductoHMTL.value = producto.precioProducto;
-        estadoProductoHTML.value = producto.estadoProducto;
-    }
-    
-    localStorage.clear();
-
     document.getElementById("btnGuardar").addEventListener('click',(e)=>{
         if(validarSiElFormularioEsValido(arrayIds)){
             //TODO El formulario es válido, se envía todo al backend
             //Se crea un formulario y se envía
-            alert("Formulario válido!! Se modifica el producto");
+            alert("Formulario válido!! Se guarda el producto");
         }else
         {
             //TODO el formulario no es válido. El usuario tiene que completar lo que falta
-            alert("Formulario no válido!! No se modifica el producto");
+            alert("Formulario no válido!! No se guarda el producto");
         }
     })
 
@@ -89,8 +74,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function validarSiElFormularioEsValido(arrayIds){
     let diccionionario =[]
     for(let id of arrayIds){
-        if(id != "idInputImage" && id != "idImagenProducto"){
-            diccionionario.push({"id":id, "valor":document.getElementById(id).value});
+        if(id != "idImagenProducto"){
+            if(id != "idInputImage"){
+                diccionionario.push({"id":id, "valor":document.getElementById(id).value});
+            }
+            else{
+                diccionionario.push({"id":id, "valor":document.getElementById(id).files[0]});
+            }
         }
     }
 
@@ -132,7 +122,7 @@ function validarCamposFormulario(arrayDiccionarioIdsYValores){
  */
 function validarCampo(valorCampo){
     let flagEsValido = false;
-    if(valorCampo != null &&valorCampo != ""){
+    if(valorCampo != null && valorCampo != ""){
         flagEsValido = true;
     }
     return flagEsValido;
@@ -151,7 +141,7 @@ function cambiarEstilo(id, flagEsValido){
                 document.getElementById(id).style.border = "1px solid red"
             }else{
                 document.getElementById(id).style.border = "1px solid #c9c8c8"
-                document.getElementById(id).placeholder = "Nombre de producto"
+                document.getElementById(id).placeholder = "Nombre del producto"
             }
             break;
         case "txtNumeroSerie":
@@ -179,6 +169,14 @@ function cambiarEstilo(id, flagEsValido){
             }else{
                 document.getElementById(id).style.border = "1px solid #c9c8c8"
                 document.getElementById(id).placeholder = "Precio"
+            }
+            break;
+        case "idInputImage":
+            if(!flagEsValido){
+                document.getElementById(id).placeholder = "Por favor, seleccioná una imagen"
+                document.getElementById(id).style.border = "1px solid red"
+            }else{
+                document.getElementById(id).style.border = "1px solid #c9c8c8"
             }
             break;
         default:

@@ -25,7 +25,7 @@ function cargarProductos(){
     document.getElementById("contenedorCardsProductos").innerHTML = htmlElementProductos;
 }
 
-export function modificarProducto(idProducto) {
+export function modificarOEliminarProducto(idProducto) {
     let productoJSON = document.getElementById(idProducto).getAttribute("productoJson");
 
     if (productoJSON != null) {
@@ -35,4 +35,4 @@ export function modificarProducto(idProducto) {
 }
 
 // Asignar la función al objeto window para hacerla accesible globalmente
-window.modificarProducto = modificarProducto;
+window.modificarOEliminarProducto = modificarOEliminarProducto;
