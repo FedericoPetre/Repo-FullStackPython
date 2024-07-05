@@ -1,119 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>HDTech</title>
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="./src/assets/img/favicon/apple-touch-icon.png" />
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="./src/assets/img/favicon/favicon-32x32.png" />
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="./src/assets/img/favicon/favicon-16x16.png" />
-		<link rel="manifest" href="./src/assets/img/favicon/site.webmanifest" />
-		<link rel="stylesheet" href="./src/styles/style.css" />
-		<link
-			rel="stylesheet"
-			href="path/to/font-awesome/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="./src/styles/mediaqueries.css" />
-		<link rel="stylesheet" href="./src/styles/animaciones.css" />
-		<link rel="stylesheet" href="./src/styles/loggin.css" />
-	</head>
-	<body>
-		<header class="header">
-			<a href="./index.html" class="header__logo">
-				<img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo"
-			/></a>
-			<nav class="navbar">
-				<label for="menu-toggle" class="menu-label">
-					<img src="./src/assets/img/menu.png" alt="Menu" />
-				</label>
-				<input type="checkbox" id="menu-toggle" />
 
-				<ul class="navbar__menu">
-					<li class="navbar__items">
-						<a href="./index.html" class="navbar__links">Home</a>
-					</li>
-					<li class="navbar__items">
-						<a href="./index.html" class="navbar__links">Productos</a>
-					<!-- </li>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HDTech</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="./src/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/img/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/img/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="./src/assets/img/favicon/site.webmanifest" />
+  <link rel="stylesheet" href="./src/styles/style.css" />
+  
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="./src/styles/mediaqueries.css" />
+  <link rel="stylesheet" href="./src/styles/animaciones.css" />
+  <link rel="stylesheet" href="./src/styles/loggin.css" />
+</head>
+
+<body>
+  <header class="header">
+    <a href="./index.html" class="header__logo">
+      <img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo" /></a>
+    <nav class="navbar">
+      <label for="menu-toggle" class="menu-label">
+        <img src="./src/assets/img/menu.png" alt="Menu" />
+      </label>
+      <input type="checkbox" id="menu-toggle" />
+
+      <ul class="navbar__menu">
+        <li class="navbar__items">
+          <a href="./index.html" class="navbar__links">Home</a>
+        </li>
+        <li class="navbar__items">
+          <a href="./index.html" class="navbar__links">Productos</a>
+          <!-- </li>
 					<li class="navbar__items">
 						<a href="#contacto" class="navbar__links">Contacto</a>
 					</li> -->
-				</ul>
+        </li>
+      </ul>
 
-				<div class="navbar__icons">
-					<a href="./alta_producto.html" target="_blank">
-						<img
-							src="./src/assets/img/plus-solid-navbar.svg"
-							alt="loggin"
-							class="navbar__icons__loggin" />
-					</a>
-					<!-- <img
+      <div class="navbar__icons">
+        <a href="./alta_producto.html" target="_blank">
+          <img src="./src/assets/img/plus-solid-navbar.svg" alt="loggin" class="navbar__icons__loggin" />
+        </a>
+        <!-- <img
 						src="./src/assets/img/cart-shopping-solid.svg"
 						alt="carrito de compras"
 						class="navbar__icons__cart" /> -->
-				</div>
-			</nav>
-		</header>		
+      </div>
+    </nav>
+  </header>
 
-		<main class="main">
-			<div class="divisor-main"></div>
-			<form class="form">
-				<h1 class="form__title">Crear una cuenta</h1>
-				<input type="text" placeholder="Nombre" class="form__input" />
-				<input type="text" placeholder="Apellido" class="form__input" />
-				<input type="email" placeholder="Email" class="form__input" />
-				<input type="password" placeholder="Contraseña" class="form__input" />
-				<input
-					type="password"
-					placeholder="Repita su contraseña"
-					class="form__input" />
-				<a href="#" class="btn btn--submit">Guardar</a>
-			</form>
-		</main>
+  <main class="main">
+    <div class="divisor-main"></div>
+    <form class="form" id="form">
+      <h1 class="form__title">Crear una cuenta</h1>
 
-		<!-- FOOTER -->
-		<footer id="footer">
-			<div class="footer-company">
-				<div class="footer__logo">
-					<img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo" />
-				</div>
-				<div class="footer-direccion">
-					<img
-						src="./src/assets/img/footer/image-removebg-preview (1).png"
-						alt="location-icon" />
-					<p>Ciudad de Buenos Aires, Argentina</p>
-				</div>
-				<div class="footer-email">
-					<img src="./src/assets/img/footer/email.png" alt="email-icon" />
-					<p>info@hdtech.com.ar</p>
-				</div>
-			</div>
-			<div class="footer-productos">
-				<p>PRODUCTOS</p>
-				<ul class="footer-links">
-					<li><a href="#">Ofertas</a></li>
-					<li><a href="#">Novedades</a></li>
-					<li><a href="#">Los más vendidos</a></li>
-				</ul>
-			</div>
-			<div class="footer-empresa">
-				<p>NUESTRA EMPRESA</p>
-				<ul class="footer-links">
-					<li><a href="#">Envíos</a></li>
-					<li><a href="#">Términos y condiciones</a></li>
-					<li><a href="#">Mapa del sitio</a></li>
-				</ul>
-			</div>
-		</footer>
-	</body>
+    <div class="form-control">
+      <label for="name"></label>
+        <input type="text"  id="name" placeholder="Nombre" class="form__input" />
+        <p id="nameError"></p>
+      </div>
+
+      <div class="form-control">
+        <label for="lastname"></label>
+        <input type="text" id="lastname" placeholder="Apellido" class="form__input" " />
+        <p></p>
+      </div>
+
+        <div id="form-control"> 
+        <label for="email"></label>
+        <input type="email" id="email" placeholder="Email" class="form__input"  />
+        <p></p>
+      </div>
+
+
+      <div id="form-control">       
+        <label for="password"></label>
+        <input type="password"id="pass" placeholder="Contraseña" class="form__input"  />
+        <p></p>  
+      </div>
+
+      </div>
+
+      <div id="form-control"> 
+      <input type="password" id="passConf" placeholder="Repita su contraseña" class="form__input" />
+      <label for="password"></label>
+      <p></p>
+      </div> 
+ <input type="submit" value="enviar">
+      
+    </form>
+    <div id="error"></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-company">
+      <div class="footer__logo">
+        <img src="./src/assets/img/HDTech_logo.png" alt="HDTech_logo" />
+      </div>
+      <div class="footer-direccion">
+        <img src="./src/assets/img/footer/image-removebg-preview (1).png" alt="location-icon" />
+        <p>Ciudad de Buenos Aires, Argentina</p>
+      </div>
+      <div class="footer-email">
+        <img src="./src/assets/img/footer/email.png" alt="email-icon" />
+        <p>info@hdtech.com.ar</p>
+      </div>
+    </div>
+    <div class="footer-productos">
+      <p>PRODUCTOS</p>
+      <ul class="footer-links">
+        <li><a href="#">Ofertas</a></li>
+        <li><a href="#">Novedades</a></li>
+        <li><a href="#">Los más vendidos</a></li>
+      </ul>
+    </div>
+    <div class="footer-empresa">
+      <p>NUESTRA EMPRESA</p>
+      <ul class="footer-links">
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Términos y condiciones</a></li>
+        <li><a href="#">Mapa del sitio</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <script src="./src/scripts/register.js"></script>
+</body>
+
 </html>
