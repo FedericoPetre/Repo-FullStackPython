@@ -42,8 +42,6 @@ function cargarProductos(){
         alert("Error: " + error);
     })
     .finally(() => {
-        // Limpiar formulario
-        limpiarFormulario();
     });
 }
 
