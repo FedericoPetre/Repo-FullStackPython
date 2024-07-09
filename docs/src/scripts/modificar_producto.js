@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if(data.mensaje) {
                     mensaje = data.mensaje;
                 } else {
-                    mensaje = "Ha ocurrido algún error al agregar el producto";
+                    mensaje = "Ha ocurrido algún error al modificar el producto";
                 }
                 alert(mensaje);
             })
