@@ -1,1 +1,1 @@
-La carpeta docs es la que es la version de la página online del repo.
+La carpeta docs es la que contiene el front y además es la versión online de pages.

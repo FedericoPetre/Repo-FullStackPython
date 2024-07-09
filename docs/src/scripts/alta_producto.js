@@ -1,7 +1,9 @@
 import Producto from "./producto.js";
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    const URL = 'https://feddupetre.pythonanywhere.com/agregar_producto';
     let arrayIds = ["txtNombreProducto", "txtNumeroSerie", "idImagenProducto", "txtPrecioProducto", "txtStock", "idInputImage"];
+    var imagenAEnviar = "";
     for(let id of arrayIds){
         switch(id){
             case "txtNombreProducto":
@@ -37,6 +39,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 fileInputImage.addEventListener('change',(event)=>{
                     cambiarEstilo(id, true);
                     const imagen = event.target.files[0];
+                    imagenAEnviar = imagen;
                     if (imagen) {
                         const reader = new FileReader();
                         
@@ -55,13 +58,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById("btnGuardar").addEventListener('click',(e)=>{
         if(validarSiElFormularioEsValido(arrayIds)){
-            //TODO El formulario es válido, se envía todo al backend
-            //Se crea un formulario y se envía
-            alert("Formulario válido!! Se guarda el producto");
-        }else
-        {
-            //TODO el formulario no es válido. El usuario tiene que completar lo que falta
-            alert("Formulario no válido!! No se guarda el producto");
+            //El formulario es válido, se envía todo al backend            
+            const formData = new FormData();
+            formData.append('nombreProducto', nombreProductoHTML.value);
+            formData.append('numeroDeSerie', numeroSerieHTML.value);
+            formData.append('precioProducto', precioProductoHMTL.value);
+            formData.append('estadoStock', estadoProductoHTML.value);
+            formData.append('imagen', imagenAEnviar, imagenAEnviar.name)
+
+            fetch(URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                let mensaje = "";
+                if(data.mensaje) {
+                    mensaje = data.mensaje;
+                } else {
+                    mensaje = "Ha ocurrido algún error al agregar el producto";
+                }
+                alert(mensaje);
+            })
+            .catch(error => {
+                alert("Error: " + error);
+            })
+            .finally(() => {
+                // Limpiar formulario
+                limpiarFormulario();
+            });
+            
         }
     })
 
@@ -182,5 +208,17 @@ function cambiarEstilo(id, flagEsValido){
         default:
             break;
     }
+}
+
+function limpiarFormulario(){
+
+    document.getElementById("txtNombreProducto").value = "";
+    document.getElementById("txtNumeroSerie").value = "";
+    let imagenProducto = document.getElementById("idImagenProducto");
+    imagenProducto.src = "./src/assets/img/producto-generico.jpg";
+    imagenProducto.alt = "Producto Genérico";
+    document.getElementById("txtPrecioProducto").value = "";
+    document.getElementById("txtStock").value = "";
+    document.getElementById("idInputImage").value = "";
 }
 

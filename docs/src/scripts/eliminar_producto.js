@@ -1,6 +1,7 @@
 import Producto from "./producto.js";
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    const URL = 'https://feddupetre.pythonanywhere.com/eliminar_productos/';
     let arrayIds = ["txtNombreProducto", "txtNumeroSerie", "idImagenProducto", "txtPrecioProducto", "txtStock"];
     for(let id of arrayIds){
         switch(id){
@@ -40,10 +41,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let productoJSON = localStorage.getItem('productoAModificar');
 
     if(productoJSON != null){
-        let producto = JSON.parse(productoJSON);
+        var producto = JSON.parse(productoJSON);
 
         nombreProductoHTML.value = producto.nombreProducto;
-        numeroSerieHTML.value = producto.idProducto;
+        numeroSerieHTML.value = producto.numeroDeSerie;
         imagenProductoHTML.src=`${producto.srcImagenProducto}`;
         imagenProductoHTML.alt=`${producto.altImagenProducto}`;
         precioProductoHMTL.value = producto.precioProducto;
@@ -54,13 +55,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById("btnGuardar").addEventListener('click',(e)=>{
         if(validarSiElFormularioEsValido(arrayIds)){
-            //TODO El formulario es válido, se envía todo al backend
-            //Se crea un formulario y se envía
-            alert("Formulario válido!! Se elimina el producto");
-        }else
-        {
-            //TODO el formulario no es válido. El usuario tiene que completar lo que falta
-            alert("Formulario no válido!! No se elimina el producto");
+            //El formulario es válido, se envía todo al backend
+            const URL_COMPLETA = URL + producto.idProducto;
+            fetch(URL_COMPLETA, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                let mensaje = "";
+                if(data.mensaje) {
+                    mensaje = data.mensaje;
+                } else {
+                    mensaje = "Ha ocurrido algún error al eliminar el producto";
+                }
+                alert(mensaje);
+            })
+            .catch(error => {
+                alert("Error: " + error);
+            })
+            .finally(() => {
+                // Limpiar formulario
+                limpiarFormulario();
+            });
         }
     })
 
@@ -168,5 +184,17 @@ function cambiarEstilo(id, flagEsValido){
         default:
             break;
     }
+}
+
+function limpiarFormulario(){
+
+    document.getElementById("txtNombreProducto").value = "";
+    document.getElementById("txtNumeroSerie").value = "";
+    let imagenProducto = document.getElementById("idImagenProducto");
+    imagenProducto.src = "./src/assets/img/producto-generico.jpg";
+    imagenProducto.alt = "Producto Genérico";
+    document.getElementById("txtPrecioProducto").value = "";
+    document.getElementById("txtStock").value = "";
+    document.getElementById("idInputImage").value = "";
 }
 

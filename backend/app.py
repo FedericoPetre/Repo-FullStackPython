@@ -117,6 +117,48 @@ def eliminarProducto(id_producto):
         return retorno
 
 
+def modificarProducto(nombre_producto, numero_de_serie, path_imagen, precio, estadoStock, id_producto):
+    '''
+    Para modificar el producto con el id pasado por parámetro
+    id_producto (es el id del producto a ser modificado)
+    '''
+    retorno = 0
+    try:
+        db = conectarABaseDeDatos()
+       
+        cursor = db.cursor()
+
+        consulta = ""
+        valores = ""
+
+        if(path_imagen != ""):
+            consulta = "UPDATE productos SET src_imagen_producto = %s, alt_imagen_producto = %s, precio_producto = %s, estado_producto = %s, nombre_producto =%s, numero_de_serie = %s WHERE id_producto = %s"
+            valores = (path_imagen, f"Imagen de {nombre_producto}", precio, estadoStock, nombre_producto, numero_de_serie, id_producto)
+        else:
+            consulta = "UPDATE productos SET alt_imagen_producto = %s, precio_producto = %s, estado_producto = %s, nombre_producto =%s, numero_de_serie = %s WHERE id_producto = %s"
+            valores = (f"Imagen de {nombre_producto}", precio, estadoStock, nombre_producto, numero_de_serie, id_producto)  
+       
+        #ejecutamos la consulta
+        cursor.execute(consulta, valores)
+
+        #guardar cambios en la base de datos
+        db.commit()
+
+        #recuperar cuantos registros se modificaron
+        retorno = cursor.rowcount
+
+        #cerrar la conexión al cursor
+        cursor.close()
+
+        #cerrar la conexión a la base de datos
+        db.close()
+    except Exception as e:
+        raise e
+    finally:
+        #devolver el resultado
+        return retorno
+
+
 def consultarProducto(id_producto):
     '''
     Para recuperar el producto coincidente con el id pasado por parámetro.
@@ -146,6 +188,24 @@ def consultarProducto(id_producto):
     return productos
 
 
+def guardarImagen(imagen):
+    '''
+    Para guardar la imagen en el path ingresado por parámetro.
+    Devuelve la url donde se guardó la imagen -en formato string-
+    imagen (la imagen a guardar)
+    '''
+    urlImagen = ""
+    if imagen:
+        filename = secure_filename(imagen.filename)
+        #guarda la imagen en el directorio estático
+        imagen.save(os.path.join(app.config['FILES_FOLDER'], filename))
+
+        #generar la url a la imagen en el directorio estático
+        urlImagen = f"{DOMAIN}/static/imagenes/{filename}"
+
+    return urlImagen
+
+
 def eliminarImagen(pathImagen):
     '''
     Para eliminar la imagen que se encuentra en el path ingresado por parámetro
@@ -156,6 +216,16 @@ def eliminarImagen(pathImagen):
         flagElimino = True
 
     return flagElimino
+
+
+def devolverRutaOriginalImagen(urlImagen):
+    '''
+    Recibe la url de la imagen y devuelve el path original donde se encuentra alojada
+    '''
+    nombreImagen = urlImagen.split('/')[-1]
+    ruta_imagen = os.path.join(app.config['FILES_FOLDER'], nombreImagen)
+
+    return ruta_imagen
 
 
 @app.route('/agregar_producto', methods=['POST'])
@@ -173,15 +243,7 @@ def agregar_producto():
         precio = request.form['precioProducto']
         estadoStock = request.form['estadoStock']
         
-        if imagen:
-            filename = secure_filename(imagen.filename)
-            #guarda la imagen en el directorio estático
-            imagen.save(os.path.join(app.config['FILES_FOLDER'], filename))
-
-            #generar la url a la imagen en el directorio estático
-            urlImagen = f"{DOMAIN}/static/imagenes/{filename}"
-        else:
-            urlImagen = ""
+        urlImagen = guardarImagen(imagen)
 
         retorno = agregarProducto(nombreProducto, numeroDeSerie, urlImagen, precio, estadoStock)
         
@@ -242,9 +304,7 @@ def eliminar_producto(id):
             }
             
             # eliminar la imagen asociada al registro
-            nombreYExtensionImagenString = producto['src_imagen_producto']
-            nombreImagen = nombreYExtensionImagenString.split('/')[-1]
-            ruta_imagen = os.path.join(app.config['FILES_FOLDER'], nombreImagen)
+            ruta_imagen = devolverRutaOriginalImagen(producto['src_imagen_producto'])
             
             flagEliminoRegistro = eliminarProducto(id)
             flagEliminoImagen = eliminarImagen(ruta_imagen)
@@ -269,6 +329,44 @@ def eliminar_producto(id):
         error = str(e)
         return jsonify({"mensaje": error}), 500
 
+
+@app.route('/modificar_productos/<int:id>', methods=['PUT'])
+def modificar_producto(id):
+    '''
+    Para modificar el producto con el id especificado en la base de datos
+    El formulario que recibe debe tener los siguientes campos:
+    nombreProducto, numeroDeSerie, imagen, precioProducto, estadoStock y srcImagenProducto
+    Devuelve un objeto con el atributo "mensaje" y además el valor de estado.
+    '''
+    try:
+        nombreProducto = request.form.get('nombreProducto')
+        numeroDeSerie = request.form.get('numeroDeSerie')
+        imagen = ""
+        precio = request.form.get('precioProducto')
+        estadoStock = request.form.get('estadoStock')
+        srcImagenProducto = request.form.get('srcImagenProducto')
+
+        urlImagen = ""
+
+        if 'imagen' in request.files:
+            # eliminar la imagen vieja asociada al registro
+            ruta_imagen = devolverRutaOriginalImagen(srcImagenProducto)
+            eliminarImagen(ruta_imagen)
+
+            #guardar la nueva y guardas las modificaciones en la base de datos
+            imagen = request.files['imagen']
+            urlImagen = guardarImagen(imagen)
+        
+        retorno = modificarProducto(nombreProducto, numeroDeSerie, urlImagen, precio, estadoStock, id)
+
+        if retorno != 0:
+            return jsonify({"mensaje":"Producto modificado con éxito"}), 200
+        else:
+            return jsonify({"mensaje":"No se ha modificado ningún registro"}), 304
+            
+    except Exception as e:
+        error = str(e)
+        return jsonify({"mensaje": error}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
