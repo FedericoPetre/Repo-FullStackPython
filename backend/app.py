@@ -362,7 +362,7 @@ def modificar_producto(id):
         if retorno != 0:
             return jsonify({"mensaje":"Producto modificado con éxito"}), 200
         else:
-            return jsonify({"mensaje":f"Error: {retorno}"}), 500
+            return jsonify({"mensaje":"No se ha modificado ningún registro"}), 304
             
     except Exception as e:
         error = str(e)

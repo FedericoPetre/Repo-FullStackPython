@@ -1,7 +1,9 @@
 import Producto from "./producto.js";
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    const URL = 'https://feddupetre.pythonanywhere.com/modificar_productos/';
     let arrayIds = ["txtNombreProducto", "txtNumeroSerie", "idImagenProducto", "txtPrecioProducto", "txtStock", "idInputImage"];
+    var imagenAEnviar = "";
     for(let id of arrayIds){
         switch(id){
             case "txtNombreProducto":
@@ -36,6 +38,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 //cambia la imagen que se ve cuando se inserta otra foto
                 fileInputImage.addEventListener('change',(event)=>{
                     const imagen = event.target.files[0];
+                    imagenAEnviar = imagen;
                     if (imagen) {
                         const reader = new FileReader();
                         
@@ -56,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let productoJSON = localStorage.getItem('productoAModificar');
 
     if(productoJSON != null){
-        let producto = JSON.parse(productoJSON);
+        var producto = JSON.parse(productoJSON);
 
         nombreProductoHTML.value = producto.nombreProducto;
         numeroSerieHTML.value = producto.numeroDeSerie;
@@ -70,13 +73,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById("btnGuardar").addEventListener('click',(e)=>{
         if(validarSiElFormularioEsValido(arrayIds)){
-            //TODO El formulario es válido, se envía todo al backend
-            //Se crea un formulario y se envía
-            alert("Formulario válido!! Se modifica el producto");
-        }else
-        {
-            //TODO el formulario no es válido. El usuario tiene que completar lo que falta
-            alert("Formulario no válido!! No se modifica el producto");
+            //El formulario es válido, se envía todo al backend            
+            const formData = new FormData();
+            formData.append('nombreProducto', nombreProductoHTML.value);
+            formData.append('numeroDeSerie', numeroSerieHTML.value);
+            formData.append('precioProducto', precioProductoHMTL.value);
+            formData.append('estadoStock', estadoProductoHTML.value);
+            formData.append('srcImagenProducto', producto.srcImagenProducto);
+
+            if(imagenAEnviar){
+                formData.append('imagen', imagenAEnviar, imagenAEnviar.name)
+            }
+
+            const URL_COMPLETA = URL +  producto.idProducto;
+
+            fetch(URL_COMPLETA, {
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                let mensaje = "";
+                if(data.mensaje) {
+                    mensaje = data.mensaje;
+                } else {
+                    mensaje = "Ha ocurrido algún error al agregar el producto";
+                }
+                alert(mensaje);
+            })
+            .catch(error => {
+                alert("Error: " + error);
+            })
+            .finally(() => {
+                // Limpiar formulario
+                limpiarFormulario();
+            });
+            
         }
     })
 
@@ -184,5 +216,17 @@ function cambiarEstilo(id, flagEsValido){
         default:
             break;
     }
+}
+
+function limpiarFormulario(){
+
+    document.getElementById("txtNombreProducto").value = "";
+    document.getElementById("txtNumeroSerie").value = "";
+    let imagenProducto = document.getElementById("idImagenProducto");
+    imagenProducto.src = "./src/assets/img/producto-generico.jpg";
+    imagenProducto.alt = "Producto Genérico";
+    document.getElementById("txtPrecioProducto").value = "";
+    document.getElementById("txtStock").value = "";
+    document.getElementById("idInputImage").value = "";
 }
 
