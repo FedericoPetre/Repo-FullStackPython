@@ -31,3 +31,10 @@ insert into productos (
                            100);
 		
 alter table productos add column id_producto_html varchar(15);
+
+CREATE TABLE `usuarios` (
+  `Nombre` varchar(300) NOT NULL,
+  `Apellido` varchar(300) NOT NULL,
+  `email` varchar(300) NOT NULL,
+  `contraseña` varchar(300) NOT NULL
+);
