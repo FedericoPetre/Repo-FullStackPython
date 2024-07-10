@@ -6,10 +6,24 @@ window.addEventListener("load", () => {
   const passConf = document.getElementById("passConf");
   const form = document.getElementById("form");
   const parrafo = document.getElementById("warnings");
+  const url = "https://feddupetre.pythonanywhere.com/registrar_usuario";
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     validaCampos();
+    const formdata = new FormData();
+    formdata.append("nombre", nameValor);
+    formdata.append("apellido", lastValor);
+    formdata.append("email", emailValor);
+    formdata.append("contrasenia", passValor);
+    fetch(url, {method: 'POST', body: formdata}).then(response=> response.json()).then(data=> {
+      if(data.mensaje) {
+        alert(data.mensaje);
+      } else {
+        alert("Ha ocurrido algún error al registrarte");
+        form.reset();
+      }
+    })
   });
 
   const validaCampos = () => {
