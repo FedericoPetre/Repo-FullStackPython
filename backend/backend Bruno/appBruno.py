@@ -25,4 +25,4 @@ def crear_usuario():
     return jsonify({"mensaje": "USUARIO CREADO CON ÉXITO"}) 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 

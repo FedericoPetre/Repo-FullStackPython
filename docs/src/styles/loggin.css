@@ -69,3 +69,12 @@ border-color: green;
 .form-control.falla p{
 	visibility: visible;
 }
+
+.linkRegistro{
+display: flex;
+flex-direction: row;
+justify-content: center;
+text-align: center;
+align-items: center;
+width: 100vw;
+}
