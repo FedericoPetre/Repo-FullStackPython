@@ -24,11 +24,25 @@ def conectarABaseDeDatos():
     return db
 
 
+def desconectar(database, cursor):
+    '''
+    Cierra la conexion de la database y del cursor
+    '''
+    if cursor is not None:
+        #cerrar conexión con el cursor
+        cursor.close()
+    if database is not None:
+        #cerrar conexión con la base de datos
+        database.close()
+
+
 def agregarProducto(nombre_producto, numero_de_serie, path_imagen, precio, estadoStock):
     '''
     Agrega un registro en la base de datos, con los argumentos pasados por parámetro
     '''
     retorno = 0
+    db = None
+    cursor = None
     try:
         db = conectarABaseDeDatos()
        
@@ -47,15 +61,12 @@ def agregarProducto(nombre_producto, numero_de_serie, path_imagen, precio, estad
         #recuperar el último id insertado
         retorno = cursor.lastrowid
 
-        #cerrar la conexión al cursor
-        cursor.close()
-
-        #cerrar la conexión a la base de datos
-        db.close()
     except Exception as e:
         #captura posible excepción
         retorno = str(e)
     finally:
+        #desconectar
+        desconectar(db, cursor)
         #devolver el resultado
         return retorno
 
@@ -66,6 +77,8 @@ def listarProductos():
     '''
     # array productos vacío
     productos = []
+    db = None
+    cursor = None
     try:
         db = conectarABaseDeDatos()
         cursor = db.cursor()
@@ -74,15 +87,11 @@ def listarProductos():
 
         #recuperar todos los registros
         productos = cursor.fetchall()
-
-        #cerrar la conexión al cursor
-        cursor.close()
-
-        #cerrar la conexión a la bd
-        db.close()
     except Exception as e:
         productos = -1
-    return productos
+    finally:
+        desconectar(db, cursor)
+        return productos
 
 
 def eliminarProducto(id_producto):
@@ -90,6 +99,8 @@ def eliminarProducto(id_producto):
     Elimina un producto de la base de datos, coincidente con el id pasado por parámetro
     '''
     retorno = 0
+    db = None
+    cursor = None
     try:
         db = conectarABaseDeDatos()
         cursor = db.cursor()
@@ -105,15 +116,11 @@ def eliminarProducto(id_producto):
 
         # indicar que la eliminación fue exitosa
         retorno = 1
-
-        # cerrar la conexión al cursor
-        cursor.close()
-
-        # cerrar la conexión a la base de datos
-        db.close()
     except Exception as e:
         raise e
     finally:
+        #desconectar
+        desconectar(db, cursor)
         return retorno
 
 
@@ -123,6 +130,8 @@ def modificarProducto(nombre_producto, numero_de_serie, path_imagen, precio, est
     id_producto (es el id del producto a ser modificado)
     '''
     retorno = 0
+    db = None
+    cursor = None
     try:
         db = conectarABaseDeDatos()
        
@@ -146,15 +155,11 @@ def modificarProducto(nombre_producto, numero_de_serie, path_imagen, precio, est
 
         #recuperar cuantos registros se modificaron
         retorno = cursor.rowcount
-
-        #cerrar la conexión al cursor
-        cursor.close()
-
-        #cerrar la conexión a la base de datos
-        db.close()
     except Exception as e:
         raise e
     finally:
+        #desconectar
+        desconectar(db, cursor)
         #devolver el resultado
         return retorno
 
@@ -164,6 +169,8 @@ def consultarProducto(id_producto):
     Para recuperar el producto coincidente con el id pasado por parámetro.
     '''
     productos = 0
+    db = None
+    cursor = None
     try:
         db = conectarABaseDeDatos()
         cursor = db.cursor()
@@ -177,15 +184,13 @@ def consultarProducto(id_producto):
         if len(productos) > 0:
             productos = productos[0]
 
-        # cerrar la conexión al cursor
-        cursor.close()
-
-        # cerrar la conexión a la bd
-        db.close()
     except Exception as e:
         raise e
-
-    return productos
+    finally:
+        #desconectar
+        desconectar(db, cursor)
+        #devolver productos
+        return productos
 
 
 def guardarImagen(imagen):
@@ -226,6 +231,73 @@ def devolverRutaOriginalImagen(urlImagen):
     ruta_imagen = os.path.join(app.config['FILES_FOLDER'], nombreImagen)
 
     return ruta_imagen
+
+
+def registrarUsuario(nombre, apellido, email, contrasenia):
+    '''
+    Registra un nuevo usuario en la base de datos, con los argumentos pasados por parámetro
+    '''
+    retorno = 0
+    db = None
+    cursor = None
+    try:
+        db = conectarABaseDeDatos()
+       
+        cursor = db.cursor()
+       
+        consulta = "INSERT INTO usuarios (nombre, apellido, email, contraseña) VALUES (%s, %s, %s, %s)"
+       
+        valores = (nombre, apellido, email, contrasenia)
+       
+        #ejecutamos la consulta
+        cursor.execute(consulta, valores)
+
+        #guardar cambios en la base de datos
+        db.commit()
+
+        #recuperar cantidad de filas afectadas
+        retorno = cursor.rowcount
+
+    except Exception as e:
+        #captura posible excepción
+        retorno = str(e)
+    finally:
+        #desconectar
+        desconectar(db, cursor)
+        #devolver el resultado
+        return retorno
+    
+
+def consultarSiExisteUsuarioConElEmail(email):
+    '''
+    Devuelve True si el email pertenece a un usuario ya registrado. False caso contrario
+    '''
+    flagExisteUsuarioConElEmail = False
+    db = None
+    cursor = None
+    try:
+        db = conectarABaseDeDatos()
+        cursor = db.cursor()
+
+        consulta = "SELECT COUNT(*) FROM usuarios WHERE email = %s"
+        valores = (email,)
+
+        # Ejecutar la consulta
+        cursor.execute(consulta, valores)
+
+        # Recuperar valor de respuesta de la consulta
+        resultado = cursor.fetchone()
+
+        # Verificar si el resultado es mayor que 0
+        if resultado and resultado[0] > 0:
+            flagExisteUsuarioConElEmail = True
+
+    except Exception as e:
+        raise e
+    finally:
+        #desconectar:
+        desconectar(db, cursor)
+        return flagExisteUsuarioConElEmail
 
 
 @app.route('/agregar_producto', methods=['POST'])
@@ -367,6 +439,35 @@ def modificar_producto(id):
     except Exception as e:
         error = str(e)
         return jsonify({"mensaje": error}), 500
+    
+
+@app.route('/registrar_usuario', methods=['POST'])
+def registrar_usuario():
+    '''
+    Para agregar un usuario a la base de datos.
+    El formulario que recibe debe tener los siguientes campos:
+    nombre, apellido, email y contrasenia
+    Devuelve un objeto con el atributo "mensaje" y además el valor de estado.
+    ''' 
+    try:
+        nombreUsuario = request.form['nombre']
+        apellidoUsuario = request.form['apellido']
+        emailUsuario = request.form['email']
+        contraseniaUsuario = request.form['contrasenia']
+
+        retorno = ""
+        if not consultarSiExisteUsuarioConElEmail(emailUsuario):
+            retorno = registrarUsuario(nombreUsuario, apellidoUsuario, emailUsuario, contraseniaUsuario)
+
+            if retorno != 0:
+                return jsonify({"mensaje":"Usuario registrado con éxito"}), 200
+            else:
+                return jsonify({"mensaje":f"Error: {retorno}"}), 500
+        else:
+            return jsonify({"mensaje":"Ya existe un usuario registrado con ese email"}), 303
+    except Exception as e:
+        error = str(e)
+        return jsonify({"mensaje": error}),500
 
 if __name__ == '__main__':
     app.run(debug=True)
