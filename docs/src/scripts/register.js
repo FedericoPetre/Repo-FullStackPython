@@ -8,6 +8,8 @@ window.addEventListener("load", () => {
   const parrafo = document.getElementById("warnings");
   const url = "https://feddupetre.pythonanywhere.com/registrar_usuario";
 
+  let nameValor, lastValor, emailValor, passValor, passConfValor;
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     validaCampos();
@@ -23,16 +25,16 @@ window.addEventListener("load", () => {
         alert("Ha ocurrido algún error al registrarte");
         form.reset();
       }
-    })
+    });
   });
 
   const validaCampos = () => {
     // Captura los valores ingresados por el usuario
-    const nameValor = name ? name.value.trim() : "";
-    const lastValor = lastname ? lastname.value.trim() : "";
-    const emailValor = email ? email.value.trim() : "";
-    const passValor = pass ? pass.value.trim() : "";
-    const passConfValor = passConf ? passConf.value.trim() : "";
+    nameValor = name ? name.value.trim() : "";
+    lastValor = lastname ? lastname.value.trim() : "";
+    emailValor = email ? email.value.trim() : "";
+    passValor = pass ? pass.value.trim() : "";
+    passConfValor = passConf ? passConf.value.trim() : "";
 
     // Validación nombre
     if (!nameValor) {
