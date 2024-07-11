@@ -33,10 +33,10 @@ window.addEventListener("load", () => {
       fetch(url, {method: 'POST', body: formdata}).then(response=> response.json()).then(data=> {
         if(data.mensaje) {
           alert(data.mensaje);
-          form.reset();
+          limpiarFormulario();
         } else {
           alert("Ha ocurrido algún error al registrarte");
-          form.reset();
+          limpiarFormulario();
         }
       });
     }
@@ -125,3 +125,13 @@ window.addEventListener("load", () => {
     return /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(email);
   };
 });
+
+function limpiarFormulario(){
+
+  document.getElementById("name").value = "";
+  document.getElementById("lastname").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("pass").value = "";
+  document.getElementById("passConf").value = "";
+}
+
