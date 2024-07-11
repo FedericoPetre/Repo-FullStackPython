@@ -33,13 +33,14 @@ window.addEventListener("load", () => {
       fetch(url, {method: 'POST', body: formdata}).then(response=> response.json()).then(data=> {
         if(data.mensaje) {
           alert(data.mensaje);
+          form.reset();
         } else {
           alert("Ha ocurrido algún error al registrarte");
           form.reset();
         }
       });
     }
-    
+
   });
 
   const validaCampos = () => {

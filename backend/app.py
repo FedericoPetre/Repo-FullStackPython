@@ -298,6 +298,26 @@ def consultarSiExisteUsuarioConElEmail(email):
         #desconectar:
         desconectar(db, cursor)
         return flagExisteUsuarioConElEmail
+    
+
+def checkID(email, contraseña):
+    '''
+    Verifica si un usuario con el email y la contraseña proporcionados existe en la base de datos
+    '''
+    db = conectarABaseDeDatos()
+    cursor = db.cursor()
+    try:
+        query = "SELECT * FROM usuarios WHERE email = %s AND contraseña = %s"
+        cursor.execute(query, (email, contraseña))
+        result = cursor.fetchone()
+        if result:
+            return True
+        else:
+            return False
+    except Exception as err:
+        raise err
+    finally:
+        desconectar(db, cursor)
 
 
 @app.route('/agregar_producto', methods=['POST'])
@@ -468,6 +488,20 @@ def registrar_usuario():
     except Exception as e:
         error = str(e)
         return jsonify({"mensaje": error}),500
+    
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.form
+    email = data['email']
+    password = data['contrasenia']
+    try:
+        if checkID(email, password):
+            return jsonify({'mensaje': 'Iniciaste Sesion'}), 200
+        else:
+            return jsonify({'mensaje': 'Verifica tus datos'}), 401
+    except Exception as e:
+        return jsonify({'mensaje':str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True)
