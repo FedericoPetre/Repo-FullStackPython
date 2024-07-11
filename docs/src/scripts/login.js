@@ -3,18 +3,51 @@ window.addEventListener("load", () => {
     const pass = document.getElementById("pass");
     const form = document.getElementById("form");
     const parrafo = document.getElementById("warnings");
+    const url = "https://feddupetre.pythonanywhere.com/login";
+
+    var validacionesOk = [false, false];
+
+    let emailValor, passValor;
   
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       validaCampos();
+
+      let flagTodoValido = true;
+
+      for(let flag of validacionesOk){
+        if(!flag){
+          flagTodoValido = false;
+        }
+      }
+
+      if(flagTodoValido){
+        const formdata = new FormData();
+        formdata.append("email", emailValor);
+        formdata.append("contrasenia", passValor);
+        fetch(url, {method: 'POST', body: formdata}).then(response=> response.json()).then(data=> {
+          if(data.mensaje) {
+            alert(data.mensaje);
+            limpiarFormulario();
+
+            if(data.mensaje != "Verifica tus datos"){
+              setTimeout(()=>{
+                window.location.href = "./index.html"
+              }, 2000)
+            }
+          } else {
+            alert("Ha ocurrido algún error al registrarte");
+            limpiarFormulario();
+          }
+        });
+      }
+
     });
   
     const validaCampos = () => {
       // Captura los valores ingresados por el usuario
-      const emailValor = email ? email.value.trim() : "";
-      const passValor = pass ? pass.value.trim() : "";
-  
-
+      emailValor = email ? email.value.trim() : "";
+      passValor = pass ? pass.value.trim() : "";
   
       // Validación email
       if (!emailValor) {
@@ -23,6 +56,7 @@ window.addEventListener("load", () => {
         validaFalla(email, "El email no es valido");
       } else {
         validaOk(email);
+        validacionesOk[0] = true
       }
   
       // Validación password
@@ -35,6 +69,7 @@ window.addEventListener("load", () => {
         validaFalla(pass, 'Debe tener al menos una mayúscula y un número');
       } else {
         validaOk(pass);
+        validacionesOk[1] = true
       }
   
     
@@ -62,4 +97,9 @@ window.addEventListener("load", () => {
       return /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(email);
     };
   });
+
+  function limpiarFormulario(){
+    document.getElementById("email").value = "";
+    document.getElementById("pass").value = "";
+  }
   

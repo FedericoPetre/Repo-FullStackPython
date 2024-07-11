@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
     e.preventDefault();
     validaCampos();
 
-    flagTodoValido = true;
+    let flagTodoValido = true;
 
     for(let flag of validacionesOk){
       if(!flag){
