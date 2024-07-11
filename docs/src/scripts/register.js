@@ -8,24 +8,38 @@ window.addEventListener("load", () => {
   const parrafo = document.getElementById("warnings");
   const url = "https://feddupetre.pythonanywhere.com/registrar_usuario";
 
+  var validacionesOk = [false, false, false, false, false];
+
   let nameValor, lastValor, emailValor, passValor, passConfValor;
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     validaCampos();
-    const formdata = new FormData();
-    formdata.append("nombre", nameValor);
-    formdata.append("apellido", lastValor);
-    formdata.append("email", emailValor);
-    formdata.append("contrasenia", passValor);
-    fetch(url, {method: 'POST', body: formdata}).then(response=> response.json()).then(data=> {
-      if(data.mensaje) {
-        alert(data.mensaje);
-      } else {
-        alert("Ha ocurrido algún error al registrarte");
-        form.reset();
+
+    flagTodoValido = true;
+
+    for(let flag of validacionesOk){
+      if(!flag){
+        flagTodoValido = false;
       }
-    });
+    }
+
+    if(flagTodoValido){
+      const formdata = new FormData();
+      formdata.append("nombre", nameValor);
+      formdata.append("apellido", lastValor);
+      formdata.append("email", emailValor);
+      formdata.append("contrasenia", passValor);
+      fetch(url, {method: 'POST', body: formdata}).then(response=> response.json()).then(data=> {
+        if(data.mensaje) {
+          alert(data.mensaje);
+        } else {
+          alert("Ha ocurrido algún error al registrarte");
+          form.reset();
+        }
+      });
+    }
+    
   });
 
   const validaCampos = () => {
@@ -42,6 +56,7 @@ window.addEventListener("load", () => {
       validaFalla(name, "campo vacio");
     } else {
       validaOk(name);
+      validacionesOk[0] = true;
     }
 
     // Validación apellido
@@ -50,6 +65,7 @@ window.addEventListener("load", () => {
       validaFalla(lastname, "campo vacio");
     } else {
       validaOk(lastname);
+      validacionesOk[1] = true;
     }
 
     // Validación email
@@ -59,6 +75,7 @@ window.addEventListener("load", () => {
       validaFalla(email, "El email no es valido");
     } else {
       validaOk(email);
+      validacionesOk[2] = true;
     }
 
     // Validación password
@@ -71,6 +88,7 @@ window.addEventListener("load", () => {
       validaFalla(pass, 'Debe tener al menos una mayúscula y un número');
     } else {
       validaOk(pass);
+      validacionesOk[3] = true;
     }
 
     // Validación confirmar password
@@ -80,6 +98,7 @@ window.addEventListener("load", () => {
       validaFalla(passConf, 'las contraseñas no coinciden');
     } else {
       validaOk(passConf);
+      validacionesOk[4] = true;
     }
   };
 
