@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const URL_COMPLETA = URL +  producto.idProducto;
 
             fetch(URL_COMPLETA, {
-                method: 'PUT',
+                method: 'POST',
                 body: formData
             })
             .then(response => response.json())

@@ -422,7 +422,7 @@ def eliminar_producto(id):
         return jsonify({"mensaje": error}), 500
 
 
-@app.route('/modificar_productos/<int:id>', methods=['PUT'])
+@app.route('/modificar_productos/<int:id>', methods=['POST'])
 def modificar_producto(id):
     '''
     Para modificar el producto con el id especificado en la base de datos
@@ -431,12 +431,12 @@ def modificar_producto(id):
     Devuelve un objeto con el atributo "mensaje" y además el valor de estado.
     '''
     try:
-        nombreProducto = request.form.get('nombreProducto')
-        numeroDeSerie = request.form.get('numeroDeSerie')
+        nombreProducto = request.form['nombreProducto']
+        numeroDeSerie = request.form['numeroDeSerie']
         imagen = ""
-        precio = request.form.get('precioProducto')
-        estadoStock = request.form.get('estadoStock')
-        srcImagenProducto = request.form.get('srcImagenProducto')
+        precio = request.form['precioProducto']
+        estadoStock = request.form['estadoStock']
+        srcImagenProducto = request.form['srcImagenProducto']
 
         urlImagen = ""
 
